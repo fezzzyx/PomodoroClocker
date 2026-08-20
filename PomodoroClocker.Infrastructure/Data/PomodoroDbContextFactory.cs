@@ -11,8 +11,10 @@ public class PomodoroDbContextFactory
         var optionsBuilder =
             new DbContextOptionsBuilder<PomodoroDbContext>();
 
-        optionsBuilder.UseSqlite("Data Source=pomodoro.db");
+        optionsBuilder.UseNpgsql(
+            "Host=localhost;Port=5432;Database=pomodoro;Username=postgres;Password=password0001");
 
-        return new PomodoroDbContext(optionsBuilder.Options);
+        return new PomodoroDbContext(
+            optionsBuilder.Options);
     }
 }
