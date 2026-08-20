@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="PomodoroClocker.Api/PomodoroClocker.Api.csproj" Id="b0ef9a9c-a9e8-438b-b373-2770f3c08775" />
+  <Project Path="PomodoroClocker.Application/PomodoroClocker.Application.csproj" Id="630acdbe-e4ad-40c6-90f3-45cfbeb8861b" />
+  <Project Path="PomodoroClocker.Core/PomodoroClocker.Core.csproj" Id="6f9b5e3a-295d-4bf2-9a24-dfadfde9e21a" />
+  <Project Path="PomodoroClocker.Infrastructure/PomodoroClocker.Infrastructure.csproj" Id="791c6eea-c576-4fd7-8a41-88096eb4ffe5" />
+  <Project Path="PomodoroClocker.Tests/PomodoroClocker.Tests.csproj" Id="3f0b87fa-3292-4deb-9051-cfbf6a5bdb7c" />
+</Solution>

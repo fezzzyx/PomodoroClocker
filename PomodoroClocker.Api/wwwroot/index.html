@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pomodoro Clocker</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Mobile menu toggle -->
+
+        <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar" id="sidebar">
+
+            <div class="logo">
+                <span class="logo-mark"></span>
+                Pomodoro
+            </div>
+
+            <nav class="nav-list">
+
+                <button class="nav-item active" data-page="timer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <polyline points="12 7 12 12 15.5 14"></polyline>
+                    </svg>
+                    <span>Timer</span>
+                </button>
+
+                <button class="nav-item" data-page="statistics">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    <span>Statistics</span>
+                </button>
+
+                <button class="nav-item" data-page="history">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v5h5"></path>
+                        <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"></path>
+                        <path d="M12 7v5l4 2"></path>
+                    </svg>
+                    <span>History</span>
+                </button>
+
+                <button class="nav-item" data-page="settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    <span>Settings</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-spacer"></div>
+
+            <button id="logoutButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Logout</span>
+            </button>
+
+        </aside>
+
+
+        <!-- Main Content -->
+
+        <main class="content">
+
+            <!-- Timer -->
+
+            <section id="timer" class="page active">
+
+                <div class="page-header">
+
+                    <h1>Pomodoro Timer</h1>
+
+                    <p>
+                        Focus on your work and take regular breaks.
+                    </p>
+
+                </div>
+
+
+                <div class="timer-layout">
+
+                    <div class="timer-card">
+
+                        <div class="session-type">
+                            🍅 Work Session
+                        </div>
+
+                        <div class="ring-wrap">
+
+                            <svg class="timer-ring" viewBox="0 0 220 220">
+                                <circle class="ring-track" cx="110" cy="110" r="100"></circle>
+                                <circle id="timerRingProgress" class="ring-progress" cx="110" cy="110" r="100"></circle>
+                            </svg>
+
+                            <div id="time" class="time">
+                                25:00
+                            </div>
+
+                        </div>
+
+                        <div id="cycleIndicator" class="cycle-indicator">
+                            Cycle 1 of 4
+                        </div>
+
+                        <div class="timer-controls">
+
+                            <button id="startButton" class="primary-button">
+                                Start
+                            </button>
+
+                            <button id="pauseButton" class="secondary-button">
+                                Pause
+                            </button>
+
+                            <button id="resetButton" class="secondary-button">
+                                Reset
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <aside class="session-queue" aria-label="Upcoming sessions">
+
+                        <div class="queue-heading">
+                            Up Next
+                        </div>
+
+                        <div id="queueTrack" class="queue-track"></div>
+
+                    </aside>
+
+                </div>
+
+
+                <div class="today-info">
+
+                    <div class="info-card">
+
+                        <span>
+                            Today's Pomodoros
+                        </span>
+
+                        <strong id="pomodoroCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <span>
+                            Focus Time
+                        </span>
+
+                        <strong id="focusTime">
+                            0 min
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Statistics -->
+
+            <section id="statistics" class="page">
+
+                <div class="page-header">
+
+                    <h1>Statistics</h1>
+
+                    <p>
+                        Your productivity at a glance.
+                    </p>
+
+                </div>
+
+                <div class="statistics-grid">
+
+                    <div class="stat-card">
+                        <span class="stat-title">
+                            Total Pomodoros
+                        </span>
+
+                        <span id="totalPomodoros" class="stat-value">
+                            0
+                        </span>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-title">
+                            Focus Time
+                        </span>
+
+                        <span id="totalFocusMinutes" class="stat-value">
+                            0 min
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="chart-card">
+
+                    <h2>Weekly Productivity</h2>
+
+                    <canvas id="weeklyChart"></canvas>
+
+                </div>
+
+            </section>
+
+
+            <!-- History -->
+
+            <section id="history" class="page">
+
+                <div class="page-header">
+
+                    <h1>Session History</h1>
+
+                    <p>
+                        Your completed Pomodoro sessions.
+                    </p>
+
+                </div>
+
+                <div class="history-card">
+
+                    <div id="historyList">
+
+                        <p class="empty-message">
+                            Loading sessions...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Settings -->
+
+            <section id="settings" class="page">
+
+                <div class="page-header">
+
+                    <h1>Settings</h1>
+
+                    <p>
+                        Customize your Pomodoro timer.
+                    </p>
+
+                </div>
+
+                <div class="settings-card">
+
+                    <div class="settings-section-title">
+                        Durations (minutes)
+                    </div>
+
+                    <label>
+                        Work duration
+
+                        <input id="workMinutes"
+                               type="number"
+                               value="25"
+                               min="1">
+                    </label>
+
+                    <label>
+                        Short break
+
+                        <input id="shortBreakMinutes"
+                               type="number"
+                               value="5"
+                               min="1">
+                    </label>
+
+                    <label>
+                        Long break
+
+                        <input id="longBreakMinutes"
+                               type="number"
+                               value="15"
+                               min="1">
+                    </label>
+
+                    <div class="settings-divider"></div>
+
+                    <div class="settings-section-title">
+                        Cycle
+                    </div>
+
+                    <label>
+                        Cycles before long break
+                        <input id="cyclesBeforeLongBreak"
+                               type="number"
+                               min="1"
+                               value="4">
+                    </label>
+
+                    <button id="saveSettingsButton" class="primary-button">
+                        Save Settings
+                    </button>
+
+                </div>
+
+                <div class="notification-settings-card">
+
+                    <div>
+                        <strong>Desktop notifications</strong>
+                        <p>Get notified when a work session or break ends.</p>
+                    </div>
+
+                    <button id="notificationButton">
+                        Enable Notifications
+                    </button>
+
+                </div>
+
+                <div class="notification-settings-card">
+
+                    <div>
+                        <strong>Notification sound</strong>
+                        <p>Play a short chime when a session ends.</p>
+                    </div>
+
+                    <label class="toggle-switch">
+                        <input id="soundToggle" type="checkbox" checked>
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    </label>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+        if (!localStorage.getItem("token")) {
+            window.location.href = "/login.html";
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div id="notificationToast" class="notification-toast">
+
+        <strong id="notificationTitle"></strong>
+
+        <p id="notificationMessage"></p>
+
+    </div>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
