@@ -9,6 +9,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT");
+
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+
 var jwtKey = builder.Configuration["Jwt:Key"];
 
 if (string.IsNullOrWhiteSpace(jwtKey))
@@ -48,7 +55,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<PomodoroDbContext>(options =>
 {
-    options.UseSqlite("Data Source=pomodoro.db");
+    options.UseNpgsql(
+        builder.Configuration
+            .GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -57,14 +66,14 @@ builder.Services.AddScoped<JwtService>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider
         .GetRequiredService<PomodoroDbContext>();
 
     db.Database.Migrate();
 }
-
+*/
 
 if (app.Environment.IsDevelopment())
 {
