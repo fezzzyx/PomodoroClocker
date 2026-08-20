@@ -12,6 +12,7 @@ RUN dotnet publish \
     -o /app/publish \
     /p:UseAppHost=false
 
+
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
 WORKDIR /app
@@ -19,5 +20,6 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 ENV ASPNETCORE_URLS=http://0.0.0.0:${PORT}
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
 
 ENTRYPOINT ["dotnet", "PomodoroClocker.Api.dll"]
